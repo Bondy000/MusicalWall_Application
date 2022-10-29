@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="EN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatiable" content="ie=edge">
+        <title>Musical Wall</title>
+
+        <script src = 'bundle.js' defer></script>
+    </head>
+    <body>
+        <h1>Start firebase</h1>
+        <h2>Firebase Firestore</h2>
+        <form class="add">
+            <label for="name">Insturment Name:</label>
+            <input type="text" name="name" required>
+            <label for="mode">Mode:</label>
+            <input type="text" name="mode" required>
+            <label for="song">Song:</label>
+            <input type="text" name="song" required>
+
+            <button>add a new instrument</button>
+        </form>
+
+        <form class="delete">
+            <label for="id">Document id:</label>
+            <input type="text" name="id" required>
+        
+            <button>delete instrument</button>
+        </form>
+
+        <form class="update">
+            <label for="id">Document id:</label>
+            <input type="text" name="id" required>
+        
+            <button>update an instrument</button>
+        </form>
+    </body>
+</html>
