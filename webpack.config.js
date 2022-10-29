@@ -9,3 +9,12 @@ module.exports = {
     },
     watch: true
 }
+module.exports = {
+    mode: 'development',
+    entry: './src/SongPageDb.js',
+    output: {
+        path: path.resolve(__dirname, 'javascript'),
+        filename: 'Songs.js'
+    },
+    watch: true
+}
