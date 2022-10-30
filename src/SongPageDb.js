@@ -1,11 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import {
-    getFirestore, collection, onSnapshot, getDocs,
-    addDoc, deleteDoc, doc,
-    query, where,
-    orderBy, serverTimestamp,
-    getDoc,
-    updateDoc
+    getFirestore, collection, onSnapshot, getDocs
 } from 'firebase/firestore'
 
 
@@ -29,52 +24,79 @@ const db = getFirestore();
 const songColRef = collection(db, 'AvailableSongs');
 
 onSnapshot(songColRef, (snapshot) =>{
-    snapshot.docs.forEach(doc => {
-        createSongTab(doc.data());
+    //console.log(snapshot.docChanges());
+    snapshot.docChanges().forEach(change => {
+        if(change.type === 'added'){
+            createSongTab(change.doc.data());
+        }else{
+            removeTab(change.doc.data().name);
+        }
     });
 })
 
 const createSongTab = (docData) =>{
     const songList = document.body;
+
     const songName = docData.name;
     const instrumentArray = docData.instruments;
 
-    checkSongExcist(songName);
+    //checkSongExcist(songName);
 
-    let containerHTML = `
-    <div id="${songName}" class="song-container">
-        <div id="song-title" class="song-title" data-id="${songName}">
-            <div id="title-image" class="title-image">
-                <img src="../images/pictures/defaultPic.png" alt="Picture not found" class="img-fit">
-            </div>
-            <div id="song-name" class="song-name">${songName}</div>
-        </div>
-        <div id="song-data" class="song-data hide-flex">
-            <div id="instrument-list" class="instrument-list">`;
+    const container = document.createElement('div');
+    container.id = songName;
+    container.classList.add('song-container');
 
-    instrumentArray.forEach(instrument => {
-        let instrumentElement = `<div id="${instrument}" class="instrument">${instrument}</div>`;
-        containerHTML += instrumentElement;
-    });    
-    containerHTML += `</div>
-        </div>
-    </div>
-    `;
+    const title = document.createElement('div');
+    title.id = 'song-title';
+    title.classList.add('song-title');
+    title.dataset.id = songName;
 
-    songList.innerHTML += containerHTML;
+    const titleImg = document.createElement('div');
+    titleImg.id='title-image';
+    titleImg.classList.add('title-image');
 
-    const title = document.querySelector("[data-id='" + songName + "']");
-    title.addEventListener('click', function() { 
-        openTab(title);
+    const img = document.createElement('img');
+    img.src ="../images/pictures/defaultPic.png";
+    img.alt = "Picture not found";
+    img.classList.add('img-fit');
+
+    titleImg.appendChild(img);
+    title.appendChild(titleImg);
+
+    const titleName = document.createElement('div');
+    titleName.id ='song-name';
+    titleName.classList.add('song-name');
+    titleName.innerHTML = songName;
+
+    title.appendChild(titleName);
+    title.onclick = function() {openTab(title)};
+    
+    container.appendChild(title);
+
+
+    const songData = document.createElement('div');
+    songData.id='song-data';
+    songData.classList.add('song-data');
+    songData.classList.add('hide-flex');
+
+    const instrumentList = document.createElement('div');
+    instrumentList.id = 'instrument-list';
+    instrumentList.classList.add('instrument-list');
+    instrumentArray.forEach(instrument =>{
+        const inst = document.createElement('div');
+        inst.id = instrument;
+        inst.classList.add('instrument');
+        inst.innerHTML= instrument;
+
+        inst.onclick = function() {checkInstrument(inst.id)};
+
+        instrumentList.appendChild(inst);
     });
 
-    const parentContainer = title.parentNode;
-    const allInstruments = parentContainer.querySelectorAll('.instrument');
-    allInstruments.forEach(inst => {
-        inst.addEventListener('click', function() {
-            checkInstrument(inst.id);
-        });
-    });
+    songData.appendChild(instrumentList);
+    container.appendChild(songData);
+
+    songList.appendChild(container);
 }
 
 const openTab = (titleElement) =>{
@@ -110,11 +132,11 @@ const checkInstrument = (instrumentName) =>{
     saveData('showInstrument', instrumentName);
 
     const newLocation = './Instruments.html';
-    console.log('bye');
+    console.log(instrumentName);
     //location.href = newLocation;
 }
 
-const checkSongExcist = (songName) =>{
+const removeTab = (songName) =>{
     const elements = document.getElementById(songName);
     if(elements != null){
         elements.remove();
