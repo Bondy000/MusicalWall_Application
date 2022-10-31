@@ -19,11 +19,7 @@
     flex: 1;
     height: 100%;
 }
-.img-fit{
-    object-fit: fill;
-    width: 100%;
-    height: 100%;
-}
+
 .song-name{
     flex: 4;
     display: flex;

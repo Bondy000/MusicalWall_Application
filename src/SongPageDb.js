@@ -24,7 +24,6 @@ const db = getFirestore();
 const songColRef = collection(db, 'AvailableSongs');
 
 onSnapshot(songColRef, (snapshot) =>{
-    //console.log(snapshot.docChanges());
     snapshot.docChanges().forEach(change => {
         if(change.type === 'added'){
             createSongTab(change.doc.data());
@@ -35,12 +34,10 @@ onSnapshot(songColRef, (snapshot) =>{
 })
 
 const createSongTab = (docData) =>{
-    const songList = document.body;
+    const songList = document.querySelector('.content');
 
     const songName = docData.name;
     const instrumentArray = docData.instruments;
-
-    //checkSongExcist(songName);
 
     const container = document.createElement('div');
     container.id = songName;
@@ -56,9 +53,11 @@ const createSongTab = (docData) =>{
     titleImg.classList.add('title-image');
 
     const img = document.createElement('img');
-    img.src ="../images/pictures/defaultPic.png";
+    img.src ="../images/pictures/" + songName + ".png";
     img.alt = "Picture not found";
     img.classList.add('img-fit');
+
+    img.onerror = function() { defaultPicture(img) };
 
     titleImg.appendChild(img);
     title.appendChild(titleImg);
@@ -132,8 +131,7 @@ const checkInstrument = (instrumentName) =>{
     saveData('showInstrument', instrumentName);
 
     const newLocation = './Instruments.html';
-    console.log(instrumentName);
-    //location.href = newLocation;
+    location.href = newLocation;
 }
 
 const removeTab = (songName) =>{
@@ -143,11 +141,13 @@ const removeTab = (songName) =>{
     }
 }
 
-const loadData = nameToSearch =>{
-    return JSON.parse(localStorage.getItem(nameToSearch));
-}
 const saveData = (nameToSave, data) => {
     localStorage.setItem(nameToSave, JSON.stringify(data));
+}
+
+const defaultPicture = imageElement =>{
+    imageElement.src ="../images/pictures/defaultPic.png";
+    imageElement.onerror = null;
 }
 
 /*const checkLanguage = () =>{
