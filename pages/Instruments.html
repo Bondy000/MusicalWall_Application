@@ -19,6 +19,8 @@
         </div>
         <script>
             const tryBle = ()=>{
+                let b = document.querySelector('.tryBle');
+                b.innerHTML = 'hi';
                 if(!navigator.bluetooth){
                     console.log('dam');
                     return;

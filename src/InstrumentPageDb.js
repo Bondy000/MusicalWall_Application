@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import {
-    getFirestore, collection, onSnapshot, getDocs
+    getFirestore, collection, onSnapshot, getDocs, doc
 } from 'firebase/firestore'
 
 
@@ -230,9 +230,55 @@ const updateSong = (name, curSong) =>{
 }
 
 const createUpdateForm = (itemlist, current, updatemode) =>{
-    console.log(itemlist,current,updatemode);
+    const updateForm = document.createElement('form');
+    updateForm.classList.add('update-form');
+    itemlist.forEach(item => {
+        const radioDiv = document.createElement('div');
 
-    /*Create a radio button to choose */
+        const radioIn = document.createElement('input');
+        radioIn.type = 'radio';
+        radioIn.id = item;
+        radioIn.name = updatemode + '_list';
+        radioIn.value = item;
+        if(current === item){
+            radioIn.checked = true;
+        }
+        radioDiv.appendChild(radioIn);
+
+        const labelIn = document.createElement('label');
+        labelIn.for = radioIn.id;
+        labelIn.textContent = item;
+        radioDiv.appendChild(labelIn);
+        updateForm.appendChild(radioDiv);
+    });
+    const butDiv = document.createElement('div');
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.innerHTML = "Close Form";
+    closeButton.onclick = function() { 
+        document.querySelector('.content').style.pointerEvents = 'visible'; 
+        updateForm.remove();
+    };
+    butDiv.appendChild(closeButton);
+
+    const submitButton = document.createElement('input');
+    submitButton.type = 'submit';
+    butDiv.appendChild(submitButton);
+    
+    updateForm.appendChild(butDiv);
+    
+    updateForm.addEventListener('submit', (e) =>{
+        e.preventDefault();
+
+        document.querySelector('.content').style.pointerEvents = 'visible';
+
+        console.log('hi');
+        updateForm.remove();
+    });
+
+    document.querySelector('.content').style.pointerEvents = 'none';
+    document.getElementsByTagName("BODY")[0].appendChild(updateForm);
 }
 
 

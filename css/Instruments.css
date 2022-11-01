@@ -107,6 +107,24 @@
     flex: 1;
 }
 
+.update-form{
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 50%;
+    height: 50%;
+
+    background-color: blue;
+    z-index: 300;
+}
+
 .tryBle{
     width: 100%;
 }
