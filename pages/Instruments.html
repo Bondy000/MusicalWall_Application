@@ -8,8 +8,49 @@
 
         <link type="text/css" href="../masterTemplate/master-template.css" rel="stylesheet">
         <script type="text/javascript" src="../masterTemplate/master_template.js" defer></script>
+
+        <link type="text/css" href="../css/Instruments.css" rel="stylesheet">
+        <script type="text/javascript" src="../javascript/Instruments.js" defer></script>
     </head>
     <body>
-        <div class="content"></div>
+        <div class="content">
+
+            <button type="button" onclick="tryBle()" class="tryBle">Click Me!</button>
+        </div>
+        <script>
+            const tryBle = ()=>{
+                if(!navigator.bluetooth){
+                    console.log('dam');
+                    return;
+                }
+                else{
+                    console.log('working');
+                }
+                /*let options = {
+                    //acceptAllDevices: true
+                    filters: [
+                        { services: ["000018f0-0000-1000-8000-00805f9b34fb"]},
+                        { namePrefix: 'E' },
+                        { namePrefix: 'Wall'},
+                        { namePrefix: 'Guitar'}
+                    ],
+                    optionalServices: [0xff0f, 'device_information']
+                }
+                navigator.bluetooth.requestDevice(options)
+                .then(device =>{
+                    console.log('name: ' + device.name);
+                    console.log(device);
+                    device.addEventListener('ongattserverdisconnected', onDisconnected);
+                    console.log(device);
+                    device.gatt.disconnect();
+                }).catch( err => {
+                    console.log(err);
+                }) */ 
+            }
+
+            /*const onDisconnected = () =>{
+                console.log('bye');
+            }*/
+        </script>
     </body>
 </html>

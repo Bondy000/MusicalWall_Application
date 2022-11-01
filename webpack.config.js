@@ -18,3 +18,12 @@ module.exports = {
     },
     watch: true
 }
+module.exports = {
+    mode: 'development',
+    entry: './src/InstrumentPageDb.js',
+    output: {
+        path: path.resolve(__dirname, 'javascript'),
+        filename: 'Instruments.js'
+    },
+    watch: true
+}

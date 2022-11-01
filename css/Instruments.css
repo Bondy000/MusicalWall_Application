@@ -1,0 +1,112 @@
+.instrument-container{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: yellow;
+}
+.instrument-title{
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: 100px;
+}
+.title-image{
+    flex: 1;
+    height: 100%;
+}
+
+.instrument-name{
+    flex: 4;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: green;
+}
+.instrument-data{
+    background-color: pink;
+    min-height: 50px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.hide-flex , .admin-data{
+    display: none;
+}
+.show-flex{
+    display: flex;
+}
+
+.mode-data, .song-data{
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 3px;
+    margin-bottom: 3px;
+
+    border: 1px solid white;
+
+    padding: 5px 0 5px 0;
+}
+
+.update-button{
+    display: flex;
+    justify-content: center;
+
+    border: 2px solid rgb(20, 218, 132);
+
+    background-color: teal;
+    color: white;
+
+    box-shadow: 0 0 5px black;
+
+    flex: 1;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    margin-right: 5px;
+    margin-left: 15px;
+}
+.update-button:active{
+    background-color: rgb(232, 103, 103);
+    color: black;
+}
+
+.song-text , .mode-text {
+    display: flex;
+    justify-content: center;
+
+    flex: 1;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    font-weight: bold;
+}
+.cur-song-text , .cur-mode-text{
+    display: flex;
+    justify-content: center;
+    
+    flex: 1;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.empty-div{
+    flex: 1;
+}
+
+.tryBle{
+    width: 100%;
+}
