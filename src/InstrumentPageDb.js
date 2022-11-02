@@ -23,6 +23,16 @@ const db = getFirestore();
 
 const instrumentColRef = collection(db, 'AvailableInstruments');
 
+const saveData = (nameToSave, data) => {
+    localStorage.setItem(nameToSave, JSON.stringify(data));
+}
+
+const loadData = nameToSearch =>{
+    return JSON.parse(localStorage.getItem(nameToSearch));
+}
+
+const chosenInstrument = loadData('showInstrument');
+
 onSnapshot(instrumentColRef, (snapshot) =>{
     snapshot.docChanges().forEach(change => {
         if(change.type === 'added'){
@@ -31,7 +41,7 @@ onSnapshot(instrumentColRef, (snapshot) =>{
             removeTab(change.doc.data().name);
         }
     });
-})
+});
 
 const createInstrumentTab = (docData) =>{
     const instrumentList = document.querySelector('.content');
@@ -77,7 +87,13 @@ const createInstrumentTab = (docData) =>{
     const instrumentData = document.createElement('div');
     instrumentData.id='instrument-data';
     instrumentData.classList.add('instrument-data');
-    instrumentData.classList.add('hide-flex');
+
+    if(chosenInstrument == instrumentName){
+        instrumentData.classList.add('show-flex');
+        saveData('showInstrument', null);
+    }else{
+        instrumentData.classList.add('hide-flex');
+    }
 
     const adminData = document.createElement('div');
     adminData.classList.add('admin-data');
@@ -182,10 +198,6 @@ const removeTab = (instrumentName) =>{
     if(elements != null){
         elements.remove();
     }
-}
-
-const saveData = (nameToSave, data) => {
-    localStorage.setItem(nameToSave, JSON.stringify(data));
 }
 
 const defaultPicture = imageElement =>{

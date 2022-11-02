@@ -19,8 +19,6 @@
         </div>
         <script>
             const tryBle = ()=>{
-                let b = document.querySelector('.tryBle');
-                b.innerHTML = 'hi';
                 if(!navigator.bluetooth){
                     console.log('dam');
                     return;
@@ -28,11 +26,12 @@
                 else{
                     console.log('working');
                 }
-                /*let options = {
+                let options = {
                     //acceptAllDevices: true
                     filters: [
+
                         { services: ["000018f0-0000-1000-8000-00805f9b34fb"]},
-                        { namePrefix: 'E' },
+                        { namePrefix: 'BT' },
                         { namePrefix: 'Wall'},
                         { namePrefix: 'Guitar'}
                     ],
@@ -42,17 +41,23 @@
                 .then(device =>{
                     console.log('name: ' + device.name);
                     console.log(device);
-                    device.addEventListener('ongattserverdisconnected', onDisconnected);
-                    console.log(device);
-                    device.gatt.disconnect();
+                    device.addEventListener('gattserverdisconnected', onDisconnected);
+                    device.gatt.connect()
+                    .then(
+                        console.log('hey'),
+                        console.log(device.ongattserverdisconnected())
+                    )
+                    .catch( err =>{
+                        console.log(err)
+                    })
                 }).catch( err => {
                     console.log(err);
-                }) */ 
+                })  
             }
 
-            /*const onDisconnected = () =>{
+            const onDisconnected = () =>{
                 console.log('bye');
-            }*/
+            }
         </script>
     </body>
 </html>
