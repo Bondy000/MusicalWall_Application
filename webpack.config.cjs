@@ -27,3 +27,15 @@ module.exports = {
     },
     watch: true
 }
+module.exports = {
+    mode: 'development',
+    entry: './src/bluetoothConnection.js',
+    output: {
+        path: path.resolve(__dirname, 'javascript'),
+        filename: 'bluetooth.js'
+    },
+    experiments: {
+        topLevelAwait: true
+    },
+    watch: true
+}

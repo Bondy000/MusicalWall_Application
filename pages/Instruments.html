@@ -11,53 +11,13 @@
 
         <link type="text/css" href="../css/Instruments.css" rel="stylesheet">
         <script type="text/javascript" src="../javascript/Instruments.js" defer></script>
+
+        <script type="text/javascript" src="../javascript/bluetooth.js" defer></script>
     </head>
     <body>
         <div class="content">
 
-            <button type="button" onclick="tryBle()" class="tryBle">Click Me!</button>
+            <button type="button" class="tryBle">Click Me!</button>
         </div>
-        <script>
-            const tryBle = ()=>{
-                if(!navigator.bluetooth){
-                    console.log('dam');
-                    return;
-                }
-                else{
-                    console.log('working');
-                }
-                let options = {
-                    //acceptAllDevices: true
-                    filters: [
-
-                        { services: ["000018f0-0000-1000-8000-00805f9b34fb"]},
-                        { namePrefix: 'BT' },
-                        { namePrefix: 'Wall'},
-                        { namePrefix: 'Guitar'}
-                    ],
-                    optionalServices: [0xff0f, 'device_information']
-                }
-                navigator.bluetooth.requestDevice(options)
-                .then(device =>{
-                    console.log('name: ' + device.name);
-                    console.log(device);
-                    device.addEventListener('gattserverdisconnected', onDisconnected);
-                    device.gatt.connect()
-                    .then(
-                        console.log('hey'),
-                        console.log(device.ongattserverdisconnected())
-                    )
-                    .catch( err =>{
-                        console.log(err)
-                    })
-                }).catch( err => {
-                    console.log(err);
-                })  
-            }
-
-            const onDisconnected = () =>{
-                console.log('bye');
-            }
-        </script>
     </body>
 </html>
